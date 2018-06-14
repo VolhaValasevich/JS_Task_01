@@ -2,24 +2,31 @@ const XLSX = require("xlsx");
 const fs = require("fs");
 const jsonregexp = /.+.json$/;
 let inputdir = "./";
-let outputdir = inputdir;
+let outputdir = "./ConvertedFiles";
 let list_of_files;
 let jsonobj;
 
 const args = require("minimist")(process.argv.slice(2));
+
 if (args.inputDir != null) {
     inputdir = args.inputDir;
 } 
+
 if (args.outputDir != null) {
     outputdir = args.outputDir;
+    if (checkOutputDir(outputdir) === 0) {
+        console.log("Directory [" + outputdir + "] does not exist and cannot be created.");
+        return;
+    }        
 } 
 
 try {
     list_of_files = fs.readdirSync(inputdir);
 } catch (err) {
-    console.log("Cannot read files from " + inputdir);
+    console.log("Cannot read files from [" + inputdir + "]. Check if it exists or is avaliable.");
     return;
 }
+
 
 for (let i=0; i<list_of_files.length; i++) {
 
@@ -30,7 +37,7 @@ for (let i=0; i<list_of_files.length; i++) {
         try {
             jsonobj = JSON.parse(jsonstring);
         } catch (err) {
-            console.log("File [" + list_of_files[i] + "] contains invalid data and is ignored");
+            console.log("File [" + list_of_files[i] + "] contains invalid data and was ignored");
             continue;
         }
 
@@ -53,4 +60,17 @@ function jsontosheet(jsonobj) {
     //XLSX.utils.json_to_sheet(jsonobj) results in a "js.forEach is not a function" error
     const sheet = XLSX.utils.aoa_to_sheet(arr);
     return sheet;
+}
+
+function checkOutputDir(outputdir) {
+    try {
+        fs.lstatSync(outputdir).isDirectory();
+    } catch (err) {
+        try {
+            fs.mkdirSync(outputdir);
+        } catch (err) {
+            console.log(err);
+            return 0;
+        }
+    }
 }
