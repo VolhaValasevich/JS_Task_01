@@ -20,11 +20,11 @@ if (process.argv.length < 3) {
         if (process.argv.length > 3) {
             logfilename = process.argv[3];
         }
-        fs.writeFile(logfilename, logstring, "utf-8", function(err) {
-            if (err) {
-               console.log("Cannot write in [" + logfilename + "]"); 
-            }  
-        })
+        try {
+            fs.writeFileSync(logfilename, logstring, "utf-8")
+        } catch (err) {
+            console.log("Cannot write in [" + logfilename + "]");
+        }
     }
 }
 
