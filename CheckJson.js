@@ -49,19 +49,19 @@ function checkJson(jsonobject) {
         errorstring += '"allElementsText": [' + jsonobject.allElementsText + '] does not contain "const";\n'
     }
     if (jsonobject.counter <= 10) {
-        errorstring += '"counter": should be more than 10, found [' + jsonobject.counter + ']\n'
+        errorstring += '"counter": should be more than 10, found [' + jsonobject.counter + '];\n'
     }
     if (jsonobject.config != "Common") {
-        errorstring += '"config": expected [Common], found [' + jsonobject.config + ']\n'
+        errorstring += '"config": expected [Common], found [' + jsonobject.config + '];\n'
     }
     if (jsonobject.const.toLowerCase() != "first") {
-        errorstring += '"const": expected [FirSt], found [' + jsonobject.const + ']\n'
+        errorstring += '"const": expected [FirSt], found [' + jsonobject.const + '];\n'
     }
     if (jsonobject.parameters.length != 8) {
-        errorstring += '"parameters": expected length [8], found [' + jsonobject.parameters.length + ']\n'
+        errorstring += '"parameters": expected length [8], found [' + jsonobject.parameters.length + '];\n'
     }
     if (jsonobject.description.length < 5 || jsonobject.description.length > 13) {
-        errorstring += '"description": expected length [5; 13], found [' + jsonobject.description.length + ']\n'
+        errorstring += '"description": expected length [5; 13], found [' + jsonobject.description.length + '];\n'
     }
     return errorstring;
 }
