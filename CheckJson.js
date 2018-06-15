@@ -57,8 +57,8 @@ function checkJson(jsonobject) {
     if (jsonobject.const.toLowerCase() != "first") {
         errorstring += '"const": expected [FirSt], found [' + jsonobject.const + '];\n'
     }
-    if (typeof(jsonobject.parameters) != "array") {
-        errorstring += '"parameters": expected type array, found [' + typeof(jsonobject.parameters) + '];\n'
+    if (typeof(jsonobject.parameters) != "object") {
+        errorstring += '"parameters": expected type object, found [' + typeof(jsonobject.parameters) + '];\n'
     } else if (jsonobject.parameters.length != 8) {
         errorstring += '"parameters": expected length [8], found [' + jsonobject.parameters.length + '];\n'
     }
