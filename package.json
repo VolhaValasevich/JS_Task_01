@@ -5,7 +5,8 @@
   "main": "CheckJson.js",
   "dependencies": {
     "xlsx": "^0.13.0",
-    "minimist": "^1.2.0"
+    "minimist": "^1.2.0",
+    "request": "^2.87.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
