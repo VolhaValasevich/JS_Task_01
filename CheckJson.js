@@ -57,10 +57,14 @@ function checkJson(jsonobject) {
     if (jsonobject.const.toLowerCase() != "first") {
         errorstring += '"const": expected [FirSt], found [' + jsonobject.const + '];\n'
     }
-    if (jsonobject.parameters.length != 8) {
+    if (typeof(jsonobject.parameters) != "array") {
+        errorstring += '"parameters": expected type array, found [' + typeof(jsonobject.parameters) + '];\n'
+    } else if (jsonobject.parameters.length != 8) {
         errorstring += '"parameters": expected length [8], found [' + jsonobject.parameters.length + '];\n'
     }
-    if (jsonobject.description.length < 5 || jsonobject.description.length > 13) {
+    if (typeof(jsonobject.description) != "string") {
+        errorstring += '"description": expected type string, found [' + typeof(jsonobject.description) + '];\n'
+    } else if (jsonobject.description.length < 5 || jsonobject.description.length > 13) {
         errorstring += '"description": expected length [5; 13], found [' + jsonobject.description.length + '];\n'
     }
     return errorstring;
