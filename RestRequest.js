@@ -28,14 +28,18 @@ if (process.argv.length >= 3) {
                 console.log("ISO 2 code: " + countryjson.alpha2_code);
                 console.log("ISO 3 code: " + countryjson.alpha3_code); 
             } else {
-                for (let i = 0; i < countryjson.length; i++) {
-                    console.log("Country name: " + countryjson[i].name);
-                    console.log("ISO 2 code: " + countryjson[i].alpha2_code);
-                    console.log("ISO 3 code: " + countryjson[i].alpha3_code);
+                if (countryjson.length > 0) {
+                    for (let i = 0; i < countryjson.length; i++) {
+                        console.log("Country name: " + countryjson[i].name);
+                        console.log("ISO 2 code: " + countryjson[i].alpha2_code);
+                        console.log("ISO 3 code: " + countryjson[i].alpha3_code);
+                    } 
+                } else {
+                    console.log("No '" + countrycode + "' found");
                 }
             }   
         } else {
-            console.log("Country not found");
+            console.log("Country with [" + countrycode + "] code not found");
         }
     });
 } else {
