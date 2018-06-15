@@ -1,8 +1,8 @@
 const XLSX = require("xlsx");
 const fs = require("fs");
 const jsonregexp = /.+.json$/;
-let inputdir = "./";
-let outputdir = "./ConvertedFiles";
+let inputdir = "./";                        
+let outputdir = "./ConvertedFiles";         
 let list_of_files;
 let jsonobj;
 
@@ -14,50 +14,50 @@ if (args.inputDir != null) {
 
 if (args.outputDir != null) {
     outputdir = args.outputDir;
-    const promise = checkOutputDir(outputdir)
-    promise.then(function (outputdir) {
-    }, function (err) {
+}
+
+checkOutputDir(outputdir).then(function (outputdir) {
+    fs.readdir(inputdir, function(err, list) {
         if (err) {
-            console.log("Directory " + outputdir + " does not exist and cannot be created");
+            console.log("Cannot read files from [" + inputdir + "]. Check if it exists or is avaliable.");
+            return;
         }
-    })
-} 
-
-fs.readdir(inputdir, function(err, list) {
-    if (err) {
-        console.log("Cannot read files from [" + inputdir + "]. Check if it exists or is avaliable.");
-    }
-    list_of_files = list;
-    for (let i=0; i<list_of_files.length; i++) {
-
-        if (list_of_files[i].toLowerCase().match(jsonregexp)) {
+        list_of_files = list;
+        for (let i=0; i<list_of_files.length; i++) {
     
-            fs.readFile(inputdir + list_of_files[i], function (err, resstring) {
-                if (err) {
-                    console.log("File [" + list_of_files[i] + "] cannot be read");
-                    return;
-                }
-                jsonstring = resstring;
-                try {
-                    jsonobj = JSON.parse(jsonstring);
-                } catch (err) {
-                    console.log("File [" + list_of_files[i] + "] contains invalid data and was ignored");
-                    return;
-                }
+            if (list_of_files[i].toLowerCase().match(jsonregexp)) {
         
-                let workbook = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(workbook, jsontosheet(jsonobj), list_of_files[i]);
-        
-                try {
-                    XLSX.writeFile(workbook, outputdir + "/" + list_of_files[i].replace("json", "xlsx")); 
-                } catch (err) {
-                    console.log("Cannot write " + list_of_files[i] + " in " + outputdir);
-                    return;
-                }
-            })
+                fs.readFile(inputdir + list_of_files[i], function (err, resstring) {
+                    if (err) {
+                        console.log("File [" + list_of_files[i] + "] cannot be read");
+                        return;
+                    }
+                    jsonstring = resstring;
+                    try {
+                        jsonobj = JSON.parse(jsonstring);
+                    } catch (err) {
+                        console.log("File [" + list_of_files[i] + "] contains invalid data and was ignored");
+                        return;
+                    }
+            
+                    let workbook = XLSX.utils.book_new();
+                    XLSX.utils.book_append_sheet(workbook, jsontosheet(jsonobj), list_of_files[i]);
+            
+                    try {
+                        XLSX.writeFile(workbook, outputdir + "/" + list_of_files[i].replace("json", "xlsx")); 
+                    } catch (err) {
+                        console.log("Cannot write " + list_of_files[i] + " in " + outputdir);
+                        return;
+                    }
+                })
+            }
         }
+    });
+}, function (err) {
+    if (err) {
+        console.log("Directory " + outputdir + " does not exist and cannot be created");
     }
-});
+})
 
 function jsontosheet(jsonobj) {
     const keys = Object.keys(jsonobj);
