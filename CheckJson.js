@@ -34,10 +34,10 @@ function checkJson(jsonobject) {
         errorstring += '"flag": expected type boolean, found [' + typeof(jsonobject.flag) + '];\n'
     }
     if (typeof(jsonobject.myPromises) != "array") {
-        errorstring += '"myPromises": expected type array, found [' + typeof(jsonobject.mypromises) + '];\n'
+        errorstring += '"myPromises": expected type array, found [' + typeof(jsonobject.myPromises) + '];\n'
     }
     if (typeof(jsonobject.element) != "object") {
-        errorstring += '"element": expected type object, found [' + typeof(jsonobject.mypromises) + '];\n'
+        errorstring += '"element": expected type object, found [' + typeof(jsonobject.element) + '];\n'
     }
     if (jsonobject.screenshot != null) {
         errorstring += '"screenshot": expected type null, found [' + typeof(jsonobject.screenshot) + '];\n'
