@@ -29,19 +29,19 @@ function main() {
 
     list_of_files.forEach(element => {
         if (list_of_files[i].toLowerCase().match(jsonregexp)) {
-            const jsonstring = fs.readFileSync(inputdir + list_of_files[i])
+            const jsonstring = fs.readFileSync(inputdir + element)
             try {
                 jsonobj = JSON.parse(jsonstring);
             } catch (err) {
-                console.log("File [" + list_of_files[i] + "] contains invalid data and was ignored");
+                console.log("File [" + element + "] contains invalid data and was ignored");
                 continue;
             }
             const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, jsontosheet(jsonobj), list_of_files[i]);
+            XLSX.utils.book_append_sheet(workbook, jsontosheet(jsonobj), element);
             try {
-                XLSX.writeFile(workbook, outputdir + "/" + list_of_files[i].replace("json", "xlsx"));
+                XLSX.writeFile(workbook, outputdir + "/" + element.replace("json", "xlsx"));
             } catch (err) {
-                console.log("Cannot write " + list_of_files[i] + " in " + outputdir);
+                console.log("Cannot write " + element + " in " + outputdir);
                 return;
             }
         }
