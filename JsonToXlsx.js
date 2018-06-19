@@ -1,6 +1,6 @@
 const XLSX = require("xlsx");
 const fs = require("fs");
-const minimist = require("minimist";)
+const minimist = require("minimist");
 
 function main() {
     const jsonregexp = /.+.json$/;
