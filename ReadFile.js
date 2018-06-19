@@ -1,24 +1,25 @@
-if (process.argv.length >= 3) {
-    const fs = require("fs");  
-    const filename = process.argv[2];
-    let text;
-    let resultstring = '';
+const fs = require("fs");  
 
-    try {
-        text = fs.readFileSync(filename, "utf-8").split("\n");
-    } catch (error) {
-        console.log("File [" + filename + "] is unavailable or does not exist!");
-    }
-
-    for (let i=1; i < text.length; i=i+2) {
-        if (text[i].indexOf("\r") > -1) {
-            text[i] = text[i].replace("\r", "");
+function readfile() {
+    if (process.argv.length >= 3) {
+        const filename = process.argv[2];
+        let text;
+        let resultstring = '';
+        try {
+            text = fs.readFileSync(filename, "utf-8").split("\n");
+        } catch (error) {
+            console.log("File [" + filename + "] is unavailable or does not exist!");
         }
-        resultstring = resultstring + text[i] + " ";
-    }
+        text.forEach((element, index) => {
+            if (index % 2 !== 0) {
+                if (element.indexOf("\r") > -1) element = element.replace("\r", "");
+                resultstring = resultstring + element + " ";
+            }
+        })
+        console.log(resultstring);
+    } else {
+        console.log("You didn't enter the file name!")
+    }    
+} 
 
-    console.log(resultstring);
-
-} else {
-    console.log("You didn't enter the file name!")
-}
+readfile();
