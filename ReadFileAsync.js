@@ -18,9 +18,7 @@ function readfile() {
                 console.log(resultstring);
             })
             .catch((err) => { console.log(`File ${filename} cannot be read`); })
-    } else {
-        console.log("You didn't enter the file name!")
-    }
+    } else console.log("You didn't enter the file name!")
 }
 
 readfile();

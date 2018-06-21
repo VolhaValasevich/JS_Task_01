@@ -17,9 +17,7 @@ function readfile() {
             }
         })
         console.log(resultstring);
-    } else {
-        console.log("You didn't enter the file name!")
-    }    
+    } else console.log("You didn't enter the file name!")
 } 
 
 readfile();

@@ -11,13 +11,11 @@ function main() {
     if (args.inputDir != null) inputdir = args.inputDir;
     if (args.outputDir != null) outputdir = args.outputDir;
     checkOutputDir(outputdir)
-        .then((readdir) => {
-            return readdir(inputdir);
-        })
+        .then((readdir) => { return readdir(inputdir);})
         .then((list) => {
             list.forEach(element => {
                 if (element.toLowerCase().match(jsonregexp)) {
-                    const jsonobj = require("./" + element);
+                    const jsonobj = require(inputdir + element);
                     const workbook = XLSX.utils.book_new();
                     XLSX.utils.book_append_sheet(workbook, jsontosheet(jsonobj), element);
                     XLSX.writeFile(workbook, outputdir + "/" + element.replace("json", "xlsx"));
